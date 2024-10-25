@@ -21,7 +21,7 @@
             text-align: left;
             margin-top: 30px;
             padding: 30px;
-            background: #fafafa;
+            background: #f9f9f9;
             overflow: scroll;
             cursor: pointer;
             display: none;
@@ -40,7 +40,16 @@
         }
         #font-preview {
             font-size: 32px;
+            text-align: left;
+            background: #fafafa;
+            border-radius: 5px;
+            padding: 15px;
         }
+        .google-font-preview-dropdown .font-search-input {
+            position: sticky;
+            top: 0;
+        }
+
     </style>
 </head>
 <body>
@@ -52,9 +61,17 @@
 </div>
 <div class="notification" id="notification">Copied to clipboard!</div>
 
-<!--<script src="google-font-preview-dropdown-combined.js"></script>-->
-<script src="google-font-preview-dropdown.300.min.js"></script>
+<script src="google-font-preview-dropdown-combined.js"></script>
+<!--<script src="google-font-preview-dropdown.min.js"></script>-->
     <script>
+        var ipsums = [
+            'The Quick Brown Fox Jumps Over the Lazy Dog',
+            'Yolo ipsum dolor sit amet, consectetur adipiscing elit. Ut ac suscipit leo. Carpe diem vulputate est nec commodo rutrum. Pellentesque mattis convallis nisi eu and I ain’t stoppin until the swear jar’s full. Ut rhoncus velit at mauris interdum, fringilla dictum neque rutrum. Curabitur mattis odio at erat viverra lobortis.',
+            'Something fishy about this one, we prefer our lorem ipsum grilled or lightly seared. One fish, two fish, red fish, blue fish; get a dozen or more with Tuna Ipsum.',
+            'Chase ball of string eat plants, meow, and throw up because I ate plants going to catch the red dot today going to catch the red dot today. I could pee on this if I had the energy. Chew iPad power cord steal the warm chair right after you get up for purr for no reason leave hair everywhere, decide to want nothing to do with my owner today.',
+            '',
+            '',
+        ];
         // Define the callback function
         function handleFontSelection(fontName, fontCssUrl, imagePath) {
             console.log(`Selected font: ${fontName}`);
@@ -63,12 +80,12 @@
             // You can perform other actions here, such as updating styles or saving selections
 
             document.getElementById('font-style').innerHTML = document.getElementById('code-preview').innerText = `@import url('${fontCssUrl}');\n#font-preview { font-family: '${fontName}', sans-serif; }`;
-            document.getElementById('font-preview').innerText = `The Quick Brown Fox Jumps Over the Lazy Dog`;
+            document.getElementById('font-preview').innerText = ipsums[3];
             document.getElementById('code-preview').style.display = 'block';
         }
 
         // Initialize the FontPreviewDropdown with the callback
-        const fontPreview = new FontPreviewDropdown('#font-selector', handleFontSelection, null, 300);
+        const fontPreview = new FontPreviewDropdown('#font-selector', handleFontSelection, 'https://cdn.jsdelivr.net/gh/kidGodzilla/google-fonts-dropdown@main/images/', 500);
 
         document.getElementById('code-preview').addEventListener('click', function() {
             const range = document.createRange();

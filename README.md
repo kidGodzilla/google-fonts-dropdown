@@ -9,6 +9,7 @@ Relies on pre-rendered images to display fonts for performance.
 All Relevant Google Fonts: `lib/google-font-preview-dropdown.min.js` (11k gzipped)
 
 Top 300 Google Fonts by popularity: `lib/google-font-preview-dropdown.300.min.js` (3k gzipped)
+
 ## Usage
 
 After including the relevant js file, initialize your element with:
@@ -22,6 +23,12 @@ new FontPreviewDropdown('#font-selector', function(fontName, fontCssUrl, imagePa
     console.log(`CSS Styles: ${imagePath}`);
 }, '../images/', 200);
 ```
+
+## Image Paths
+
+You can probably use this image path or host yourself:
+
+`https://cdn.jsdelivr.net/gh/kidGodzilla/google-fonts-dropdown@main/images/`
 
 ## File size and performance
 
