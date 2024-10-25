@@ -1,0 +1,14 @@
+{
+  "name": "google-fonts-preview-dropdown",
+  "version": "1.0.0",
+  "description": "A google fonts preview dropdown with pre-generated images that doesn't require an API key",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "James Futhey",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "^23.6.0"
+  }
+}

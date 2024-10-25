@@ -1,0 +1,77 @@
+.google-font-preview-dropdown {
+    position: relative;
+    min-width: 300px; /* Adjust width as needed */
+    font-family: sans-serif;
+}
+
+.google-font-preview-dropdown .font-dropdown {
+    border: 1px solid #ccc; /* Border styling */
+    border-radius: 4px; /* Rounded corners */
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff; /* Background color */
+    position: relative;
+    width: 320px;
+}
+
+.google-font-preview-dropdown .selected-font {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: space-between; /* Space between text and caret */
+    align-items: center; /* Center the text vertically */
+}
+
+.google-font-preview-dropdown .font-options {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 100%; /* Position below the dropdown */
+    left: 0;
+    right: 0;
+    border: 1px solid #ccc; /* Border for options */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #fff; /* Background color */
+    z-index: 1000; /* Ensure it appears above other elements */
+}
+
+.google-font-preview-dropdown .font-options > div {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.google-font-preview-dropdown .font-options > div > img {
+    width: 320px; /* Half of 640px for better sharpness */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px;
+}
+
+.google-font-preview-dropdown .font-options div:hover {
+    background: #f0f0f0; /* Highlight on hover */
+}
+
+.google-font-preview-dropdown .font-preview {
+    margin-top: 20px;
+    height: 40px; /* Half the height of the original image */
+}
+
+.google-font-preview-dropdown .font-preview img {
+    width: 320px; /* Half the width of the original image */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.google-font-preview-dropdown .dropdown-caret {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent; /* Left triangle */
+    border-right: 5px solid transparent; /* Right triangle */
+    border-top: 5px solid #000; /* Color of the triangle */
+    margin-left: 10px; /* Space between text and caret */
+}
+
+.google-font-preview-dropdown .font-search-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px; /* Rounded corners */
+    width: calc(100% - 20px); /* Full width minus padding */
+    margin-bottom: 5px; /* Space below the input */
+}

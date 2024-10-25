@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Preview Dropdown</title>
+    <style type="text/css">
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .font-preview {
+            margin: 20px;
+            position: relative;
+            width: 300px; /* Adjust width as needed */
+        }
+
+        .custom-dropdown {
+            border: 1px solid #ccc; /* Border styling */
+            border-radius: 4px; /* Rounded corners */
+            padding: 10px;
+            cursor: pointer;
+            background-color: #fff; /* Background color */
+            position: relative;
+            width: 320px;
+        }
+
+        .selected {
+            display: flex;
+            justify-content: space-between; /* Space between text and caret */
+            align-items: center; /* Center the text vertically */
+        }
+
+        .options {
+            display: none; /* Hidden by default */
+            position: absolute;
+            top: 100%; /* Position below the dropdown */
+            left: 0;
+            right: 0;
+            border: 1px solid #ccc; /* Border for options */
+            border-radius: 4px; /* Rounded corners */
+            background-color: #fff; /* Background color */
+            z-index: 1000; /* Ensure it appears above other elements */
+        }
+
+        .options div {
+            padding: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .options div img {
+            width: 320px; /* Half of 640px for better sharpness */
+            height: auto; /* Maintain aspect ratio */
+            margin-right: 10px;
+        }
+
+        .options div:hover {
+            background: #f0f0f0; /* Highlight on hover */
+        }
+
+        .preview {
+            margin-top: 20px;
+            height: 40px; /* Half the height of the original image */
+        }
+
+        .preview img {
+            width: 320px; /* Half the width of the original image */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        /* Caret styling */
+        .caret {
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent; /* Left triangle */
+            border-right: 5px solid transparent; /* Right triangle */
+            border-top: 5px solid #000; /* Color of the triangle */
+            margin-left: 10px; /* Space between text and caret */
+        }
+
+        /* Search input styling */
+        .search-input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px; /* Rounded corners */
+            width: calc(100% - 20px); /* Full width minus padding */
+            margin-bottom: 5px; /* Space below the input */
+        }
+    </style>
+</head>
+<body>
+    <div class="font-preview">
+        <div class="custom-dropdown" id="custom-dropdown">
+            <div class="selected">
+                <span id="selected-font">Select a font</span>
+                <span class="caret"></span> <!-- Caret icon -->
+            </div>
+            <div class="options" id="font-options">
+                <input type="text" class="search-input" id="font-search" placeholder="Search fonts...">
+            </div>
+        </div>
+        <div id="preview" class="preview"></div>
+    </div>
+
+    <script src="fontnames.js"></script>
+    <script>
+        // Populate the custom dropdown
+        const dropdown = document.getElementById('custom-dropdown');
+        const fontOptions = document.getElementById('font-options');
+        const selectedFontDisplay = document.getElementById('selected-font');
+        const searchInput = document.getElementById('font-search');
+
+        const popularityThreshold = 250;
+
+        // Create option elements with images
+        fontNames.forEach(fontName => {
+            if (popularity.indexOf(fontName) < popularityThreshold && !fontName.toLowerCase().includes('icon')) {
+                const option = document.createElement('div');
+                const imagePath = `images/${fontName.replace(/ /g, '_')}.png`; // Generate the image path
+
+                option.innerHTML = `<img src="${imagePath}" alt="${fontName}" loading="lazy" onerror="this.parentElement.remove();failing.push(this.src);">`;
+                option.setAttribute('data-font-name', fontName); // Store font name in a data attribute
+
+                option.onclick = (e) => {
+                    e.stopPropagation();
+                    selectedFontDisplay.textContent = fontName; // Update the display
+                    updatePreview(imagePath); // Show the selected font preview
+                    fontOptions.style.display = 'none'; // Close the dropdown
+                };
+
+                fontOptions.appendChild(option); // Append the option only if the condition is met
+            }
+        });
+
+
+        // Toggle dropdown visibility
+        dropdown.onclick = (e) => {
+            fontOptions.style.display = fontOptions.style.display === 'block' ? 'none' : 'block';
+            searchInput.focus(); // Focus on the search input when dropdown opens
+        };
+
+        // Function to update the preview
+        function updatePreview(imagePath) {
+            const previewDiv = document.getElementById('preview');
+            previewDiv.innerHTML = `<img src="${imagePath}" alt="Font Preview">`;
+        }
+
+        // Search functionality
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            const options = fontOptions.querySelectorAll('div');
+
+            options.forEach(option => {
+                const fontName = option.getAttribute('data-font-name').toLowerCase();
+                option.style.display = fontName.includes(searchTerm) ? 'flex' : 'none';
+            });
+        });
+
+        // Close the dropdown if clicking outside
+        window.onclick = (event) => {
+            if (!dropdown.contains(event.target)) {
+                fontOptions.style.display = 'none';
+            }
+        };
+    </script>
+</body>
+</html>

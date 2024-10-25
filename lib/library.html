@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Preview Dropdown</title>
+    <link rel="stylesheet" href="fontPreviewDropdown.css">
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <div id="font-preview-container"></div>
+
+    <script src="./fontnames.js"></script>
+    <script src="fontPreviewDropdown.js"></script>
+    <script>
+        // Define the callback function
+        function handleFontSelection(fontName, imagePath) {
+            console.log(`Selected font: ${fontName}`);
+            console.log(`Image path: ${imagePath}`);
+            // You can perform other actions here, such as updating styles or saving selections
+        }
+
+        // Initialize the FontPreviewDropdown with the callback
+        const fontPreview = new FontPreviewDropdown('#font-preview-container', __googleFontNames, handleFontSelection);
+    </script>
+</body>
+</html>

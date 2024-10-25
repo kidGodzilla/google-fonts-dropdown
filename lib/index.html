@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Preview Dropdown</title>
+    <style id="font-style"></style>
+
+    <style>
+        body {
+            padding: 30px;
+            font-family: sans-serif;
+        }
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        #font-selector { margin: 0 auto; width: 300px; }
+        pre {
+            text-align: left;
+            margin-top: 30px;
+            padding: 30px;
+            background: #fafafa;
+            overflow: scroll;
+            cursor: pointer;
+            display: none;
+        }
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: #4caf50; /* Green background */
+            color: white; /* White text */
+            border-radius: 5px;
+            display: none; /* Hidden by default */
+            z-index: 1000;
+        }
+        #font-preview {
+            font-size: 32px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Google Font Dropdown Selector</h1>
+    <div id="font-selector"></div>
+    <div id="font-preview"></div>
+    <pre id="code-preview"></pre>
+</div>
+<div class="notification" id="notification">Copied to clipboard!</div>
+
+<script src="google-font-preview-dropdown-combined.js"></script>
+    <script>
+        // Define the callback function
+        function handleFontSelection(fontName, fontCssUrl, imagePath) {
+            console.log(`Selected font: ${fontName}`);
+            console.log(`CSS URL: ${fontCssUrl}`);
+            console.log(`Image path: ${imagePath}`);
+            // You can perform other actions here, such as updating styles or saving selections
+
+            document.getElementById('font-style').innerHTML = document.getElementById('code-preview').innerText = `@import url('${fontCssUrl}');\n#font-preview { font-family: '${fontName}', sans-serif; }`;
+            document.getElementById('font-preview').innerText = `The Quick Brown Fox Jumps Over the Lazy Dog`;
+            document.getElementById('code-preview').style.display = 'block';
+        }
+
+        // Initialize the FontPreviewDropdown with the callback
+        const fontPreview = new FontPreviewDropdown('#font-selector', handleFontSelection, null, 500);
+
+        document.getElementById('code-preview').addEventListener('click', function() {
+            const range = document.createRange();
+            range.selectNodeContents(this);
+            const selection = window.getSelection();
+            selection.removeAllRanges(); // Clear any existing selections
+            selection.addRange(range); // Select the text
+
+            try {
+                // Copy the selected text to clipboard
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showNotification('Copied to clipboard!');
+                } else {
+                    showNotification('Failed to copy.');
+                }
+            } catch (err) {
+                console.error('Error copying text: ', err);
+                showNotification('Error copying text.');
+            }
+
+            // Optionally, clear the selection
+            selection.removeAllRanges();
+        });
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+
+            // Automatically hide the notification after 2 seconds
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
