@@ -52,7 +52,8 @@
 </div>
 <div class="notification" id="notification">Copied to clipboard!</div>
 
-<script src="google-font-preview-dropdown-combined.js"></script>
+<!--<script src="google-font-preview-dropdown-combined.js"></script>-->
+<script src="google-font-preview-dropdown.300.min.js"></script>
     <script>
         // Define the callback function
         function handleFontSelection(fontName, fontCssUrl, imagePath) {
@@ -67,7 +68,7 @@
         }
 
         // Initialize the FontPreviewDropdown with the callback
-        const fontPreview = new FontPreviewDropdown('#font-selector', handleFontSelection, null, 500);
+        const fontPreview = new FontPreviewDropdown('#font-selector', handleFontSelection, null, 300);
 
         document.getElementById('code-preview').addEventListener('click', function() {
             const range = document.createRange();
