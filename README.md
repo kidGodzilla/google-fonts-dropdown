@@ -44,3 +44,6 @@ You can reduce this dramatically by reducing the number of items in the array of
 
 google-font-preview-dropdown.300.min.js is about 3k minified and gzipped.
 
+## Mobile
+
+Not really supported, you should fall back to another element.
