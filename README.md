@@ -4,6 +4,10 @@ A Google fonts dropdown selector that doesn't require any dependencies or API ke
 
 Relies on pre-rendered images to display fonts for performance.
 
+## Demo
+
+https://kidgodzilla.github.io/google-fonts-dropdown/lib/index.html
+
 ## Scripts
 
 All Relevant Google Fonts: `lib/google-font-preview-dropdown.min.js` (11k gzipped)
