@@ -88,7 +88,16 @@
         Font Dropdown Selector
     </h1>
     <div id="font-selector"></div>
-    <div id="font-preview" data-alt="Preview"></div>
+
+    <div id="font-preview" data-alt="Preview" contenteditable="true"></div>
+
+<!--    <select id="ipsum" onchange="newIpsum()">-->
+<!--        <option value="0" selected>Quick Brown Fox</option>-->
+<!--        <option value="1">Yolo Ipsum</option>-->
+<!--        <option value="2">Fishy Ipsum</option>-->
+<!--        <option value="3">Cat Ipsum</option>-->
+<!--    </select>-->
+
     <pre id="code-preview" data-alt="Code"></pre>
 </div>
 <div class="notification" id="notification">Copied to clipboard!</div>
@@ -108,6 +117,11 @@
             '',
             '',
         ];
+
+        function newIpsum() {
+            document.getElementById('font-preview').innerText = ipsums[ parseInt(document.querySelector('#ipsum').value) ]
+        }
+
         // Define the callback function
         function handleFontSelection(fontName, fontCssUrl, imagePath) {
             console.log(`Selected font: ${fontName}`);
@@ -116,14 +130,14 @@
             // You can perform other actions here, such as updating styles or saving selections
 
             document.getElementById('font-style').innerHTML = document.getElementById('code-preview').innerText = `@import url('${fontCssUrl}');\n#font-preview { font-family: '${fontName}', sans-serif; }`;
-            document.getElementById('font-preview').innerText = ipsums[0];
+            if (!document.getElementById('font-preview').innerText) document.getElementById('font-preview').innerText = ipsums[0];
             document.getElementById('code-preview').style.display = 'block';
         }
 
-        document.getElementById('font-preview').innerText = ipsums[0];
+        if (!document.getElementById('font-preview').innerText) document.getElementById('font-preview').innerText = ipsums[0];
 
         // Initialize the FontPreviewDropdown with the callback
-        const fontPreview = new FontPreviewDropdown('#font-selector', handleFontSelection, 'https://cdn.jsdelivr.net/gh/kidGodzilla/google-fonts-dropdown@main/images/', 500);
+        const fontPreview = new FontPreviewDropdown('#font-selector', handleFontSelection, '', 500); // 'https://cdn.jsdelivr.net/gh/kidGodzilla/google-fonts-dropdown@main/images/'
 
         document.getElementById('code-preview').addEventListener('click', function() {
             const range = document.createRange();
